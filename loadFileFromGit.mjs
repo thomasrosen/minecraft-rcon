@@ -7,12 +7,33 @@ const tempDir = `./temp-repo-${randomString}`;
 export async function loadFileFromGit({ repoUrl, filePath, branch = 'main' }) {
   const git = simpleGit();
 
+  const auth = {
+    type: 'token',
+    token: process.env.GITHUB_TOKEN
+  };
 
-  console.log('repoUrl', String(repoUrl).replace('http', '???'))
+  // Apply authentication
+  if (auth.type === 'basic') {
+    const { username, password } = auth;
+    const urlObj = new URL(repoUrl);
+    urlObj.username = encodeURIComponent(username);
+    urlObj.password = encodeURIComponent(password);
+    authenticatedUrl = urlObj.toString();
+  } else if (auth.type === 'token') {
+    const { token } = auth;
+    const urlObj = new URL(repoUrl);
+    urlObj.username = 'oauth2';
+    urlObj.password = encodeURIComponent(token);
+    authenticatedUrl = urlObj.toString();
+  }
+
+  console.log('repoUrl', String(authenticatedUrl).replace('http', '???'))
 
   try {
-    // Clone the repository
-    await git.clone(repoUrl, tempDir);
+    // Clone the repository if it doesn't exist
+    if (!await fs.access(tempDir).then(() => true).catch(() => false)) {
+      await git.clone(authenticatedUrl, tempDir);
+    }
 
     // Change to the specified branch
     await git.cwd(tempDir).checkout(branch);
