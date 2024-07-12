@@ -3,6 +3,12 @@ name: Cron Action
 on:
   schedule:
     - cron: '0 * * * *'  # This runs at the start of every hour
+  workflow_dispatch:  # This enables manual triggering
+    inputs:
+      reason:
+        description: 'Reason for manual run'
+        required: false
+        default: 'Manual trigger'
 
 jobs:
   run-action:
@@ -19,7 +25,7 @@ jobs:
         node-version: '20'  # You can adjust this to your preferred Node.js version
 
     - name: Install dependencies
-      run: npm ci  # This assumes you have a package.json file
+      run: npm i  # This assumes you have a package.json file
       # If you don't have a package.json, you might use: npm install
 
     - name: Run action.js
