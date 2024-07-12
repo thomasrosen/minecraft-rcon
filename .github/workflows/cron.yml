@@ -3,6 +3,12 @@ name: Cron Action
 on:
   schedule:
     - cron: '0 * * * *'  # This runs at the start of every hour
+  workflow_dispatch:  # This enables manual triggering
+    inputs:
+      reason:
+        description: 'Reason for manual run'
+        required: false
+        default: 'Manual trigger'
 
 jobs:
   run-action:
