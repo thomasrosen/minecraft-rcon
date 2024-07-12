@@ -34,4 +34,4 @@ jobs:
         RCON_PORT: ${{ secrets.RCON_PORT }}
         RCON_PASSWORD: ${{ secrets.RCON_PASSWORD }}
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-      run: node action.js
+      run: node action.mjs
