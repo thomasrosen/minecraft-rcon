@@ -74,8 +74,10 @@ export async function saveKeyValue({ repoUrl = process.env.GIT_REPO_URL, commitM
 
   const authToken = {
     type: 'token',
-    token: process.env.GIT_ACCESS_TOKEN
+    token: process.env.GITHUB_TOKEN
   };
+
+  console.log('process.env.GITHUB_TOKEN', process.env.GITHUB_TOKEN)
 
   // Choose one of the auth methods
   const auth = authToken; // or authBasic
