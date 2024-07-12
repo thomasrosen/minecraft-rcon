@@ -8,7 +8,7 @@ export async function loadFileFromGit({ repoUrl, filePath, branch = 'main' }) {
   const git = simpleGit();
 
 
-  console.log('repoUrl', repoUrl)
+  console.log('repoUrl', String(repoUrl).replace('http', '???'))
 
   try {
     // Clone the repository
