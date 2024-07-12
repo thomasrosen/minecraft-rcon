@@ -8,7 +8,7 @@ async function sendMessage2discord(content) {
   const webhook = process.env.DISCORD_WEBHOOK
 
   if (!webhook) {
-    console.log('No webhook provided')
+    console.error('No webhook provided')
     return
   }
 
@@ -30,7 +30,7 @@ function saveCachePlayersInfo(playersInfo) {
     key: process.env.CACHE_FILE_PATH,
     value: playersInfo,
   }).then(() => {
-    console.log('Key-value pair saved successfully');
+    console.info('Key-value pair saved successfully');
   }).catch(error => {
     console.error('Failed to save key-value pair:', error);
   })
@@ -53,11 +53,11 @@ async function sendPlayerInfo2discord() {
 
   const cachedPlayersInfo = await loadCachePlayersInfo()
   if (playersInfo === cachedPlayersInfo) {
-    console.log('No changes in players info')
+    console.info('No changes in players info')
     return
   }
 
-  console.log(playersInfo)
+  console.info(playersInfo)
   sendMessage2discord(playersInfo)
   saveCachePlayersInfo(playersInfo)
 }
