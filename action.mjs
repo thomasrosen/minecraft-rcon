@@ -1,6 +1,11 @@
-import { Rcon } from "rcon-client"
+import { Rcon } from "rcon-client";
+import { loadFileFromGit } from './loadFileFromGit.mjs';
+import { saveKeyValue } from './saveKeyValue.mjs';
 
 await import("dotenv").then((m) => m.config())
+
+const randomString = Math.random().toString(36).substring(7);
+const tempDir = `./temp-repo-${randomString}`;
 
 async function sendMessage2discord(content) {
   const webhook = process.env.DISCORD_WEBHOOK
@@ -19,6 +24,22 @@ async function sendMessage2discord(content) {
   })
 }
 
+function loadCachePlayersInfo() {
+  return loadFileFromGit({ repoUrl: process.env.GIT_REPO_URL, filePath: process.env.CACHE_FILE_PATH, branch: 'main', tempDir: process.env.CACHE_FILE_PATH })
+}
+function saveCachePlayersInfo(playersInfo) {
+  return saveKeyValue({
+    tempDir,
+    repoUrl: process.env.REPO_GIT_REPO_URLURL,
+    key: process.env.CACHE_FILE_PATH,
+    value: playersInfo
+  }).then(() => {
+    console.log('Key-value pair saved successfully');
+  }).catch(error => {
+    console.error('Failed to save key-value pair:', error);
+  })
+}
+
 async function sendPlayerInfo2discord() {
   if (!process.env.RCON_HOST || !process.env.RCON_PORT || !process.env.RCON_PASSWORD) {
     console.error("Missing RCON_HOST, RCON_PORT, or RCON_PASSWORD")
@@ -32,10 +53,19 @@ async function sendPlayerInfo2discord() {
   })
 
   const playersInfo = await rcon.send("list")
+  rcon.end()
+
+  const cachedPlayersInfo = await loadCachePlayersInfo()
+  if (playersInfo === cachedPlayersInfo) {
+    console.log('No changes in players info')
+    return
+  }
+
   console.log(playersInfo)
   sendMessage2discord(playersInfo)
-
-  rcon.end()
+  saveCachePlayersInfo(playersInfo)
 }
 
 sendPlayerInfo2discord()
+
+
