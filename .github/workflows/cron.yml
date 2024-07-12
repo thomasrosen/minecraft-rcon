@@ -30,5 +30,8 @@ jobs:
 
     - name: Run action.js
       env:
-        RCON_IP: ${{ secrets.RCON_IP }}
+        RCON_HOST: ${{ secrets.RCON_HOST }}
+        RCON_PORT: ${{ secrets.RCON_PORT }}
+        RCON_PASSWORD: ${{ secrets.RCON_PASSWORD }}
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       run: node action.js
