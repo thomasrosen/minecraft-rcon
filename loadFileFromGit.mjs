@@ -1,7 +1,10 @@
 import { promises as fs } from 'fs';
 import { simpleGit } from 'simple-git';
 
-export async function loadFileFromGit({ repoUrl, filePath, branch = 'main', tempDir = './temp-repo' }) {
+const randomString = Math.random().toString(36).substring(7);
+const tempDir = `./temp-repo-${randomString}`;
+
+export async function loadFileFromGit({ repoUrl, filePath, branch = 'main' }) {
   const git = simpleGit();
 
   try {
