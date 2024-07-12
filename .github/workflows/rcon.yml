@@ -10,7 +10,7 @@ on:
         required: false
         default: "Manual trigger"
   repository_dispatch:
-    types: [webhook]
+    types: [rcon_webhook]
 
 jobs:
   run-action:
