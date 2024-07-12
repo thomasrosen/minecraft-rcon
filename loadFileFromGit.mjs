@@ -10,8 +10,10 @@ export async function loadFileFromGit({ repoUrl, filePath, branch = 'main' }) {
 
   const auth = {
     type: 'token',
-    token: process.env.GITHUB_TOKEN
+    token: process.env.GIT_ACCESS_TOKEN
   };
+  console.log('process.env.GITHUB_TOKEN', process.env.GITHUB_TOKEN)
+  console.log('process.env.GIT_ACCESS_TOKEN', process.env.GIT_ACCESS_TOKEN)
 
   // Apply authentication
   if (auth.type === 'basic') {
