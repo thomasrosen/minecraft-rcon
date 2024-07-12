@@ -2,7 +2,7 @@ name: Rcon Action
 
 on:
   schedule:
-    - cron: "0 * * * *" # This runs at the start of every hour
+    - cron: "*/5 * * * *" # every 5 minutes
   workflow_dispatch: # This enables manual triggering
     inputs:
       reason:
