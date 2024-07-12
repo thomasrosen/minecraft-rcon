@@ -1,0 +1,28 @@
+name: Cron Action
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # This runs at the start of every hour
+
+jobs:
+  run-action:
+    name: Run action.js regularly
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'  # You can adjust this to your preferred Node.js version
+
+    - name: Install dependencies
+      run: npm ci  # This assumes you have a package.json file
+      # If you don't have a package.json, you might use: npm install
+
+    - name: Run action.js
+      env:
+        RCON_IP: ${{ secrets.RCON_IP }}
+      run: node action.js
