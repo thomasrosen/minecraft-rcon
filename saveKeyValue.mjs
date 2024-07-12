@@ -51,7 +51,7 @@ async function writeToGitFile(repoUrl, filePath, content, commitMessage, branch 
     // Push the changes to the remote repository
     await git.push('origin', branch);
 
-    console.log('Changes successfully pushed to the repository');
+    console.info('Changes successfully pushed to the repository');
   } catch (error) {
     console.error('Error:', error);
     throw error;
@@ -79,6 +79,6 @@ export async function saveKeyValue({ repoUrl = process.env.GIT_REPO_URL, commitM
   const auth = authToken; // or authBasic
 
   writeToGitFile(repoUrl, filePath, newContent, commitMessage, 'main', auth)
-    .then(() => console.log('File updated successfully'))
+    .then(() => console.info('File updated successfully'))
     .catch(error => console.error('Failed to update file:', error));
 }
