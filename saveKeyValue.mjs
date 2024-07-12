@@ -25,8 +25,6 @@ async function writeToGitFile(repoUrl, filePath, content, commitMessage, branch 
     authenticatedUrl = urlObj.toString();
   }
 
-  console.log('authenticatedUrl', authenticatedUrl)
-
   try {
     // Clone the repository if it doesn't exist
     if (!await fs.access(tempDir).then(() => true).catch(() => false)) {
