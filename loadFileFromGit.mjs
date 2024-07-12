@@ -28,8 +28,6 @@ export async function loadFileFromGit({ repoUrl, filePath, branch = 'main' }) {
     authenticatedUrl = urlObj.toString();
   }
 
-  console.log('repoUrl', String(authenticatedUrl).replace('http', '???'))
-
   try {
     // Clone the repository if it doesn't exist
     if (!await fs.access(tempDir).then(() => true).catch(() => false)) {
