@@ -5,6 +5,7 @@ const randomString = Math.random().toString(36).substring(7);
 const tempDir = `./temp-repo-${randomString}`;
 
 export async function loadFileFromGit({ repoUrl, filePath, branch = 'main' }) {
+  let authenticatedUrl = repoUrl;
   const git = simpleGit();
 
   const auth = {
