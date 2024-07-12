@@ -4,9 +4,6 @@ import { saveKeyValue } from './saveKeyValue.mjs';
 
 await import("dotenv").then((m) => m.config())
 
-const randomString = Math.random().toString(36).substring(7);
-const tempDir = `./temp-repo-${randomString}`;
-
 async function sendMessage2discord(content) {
   const webhook = process.env.DISCORD_WEBHOOK
 
@@ -25,14 +22,13 @@ async function sendMessage2discord(content) {
 }
 
 function loadCachePlayersInfo() {
-  return loadFileFromGit({ repoUrl: process.env.GIT_REPO_URL, filePath: process.env.CACHE_FILE_PATH, branch: 'main', tempDir: process.env.CACHE_FILE_PATH })
+  return loadFileFromGit({ repoUrl: process.env.GIT_REPO_URL, filePath: process.env.CACHE_FILE_PATH, branch: 'main' })
 }
 function saveCachePlayersInfo(playersInfo) {
   return saveKeyValue({
-    tempDir,
     repoUrl: process.env.REPO_GIT_REPO_URLURL,
     key: process.env.CACHE_FILE_PATH,
-    value: playersInfo
+    value: playersInfo,
   }).then(() => {
     console.log('Key-value pair saved successfully');
   }).catch(error => {
