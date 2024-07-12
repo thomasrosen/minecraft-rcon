@@ -36,4 +36,7 @@ jobs:
           RCON_PORT: ${{ secrets.RCON_PORT }}
           RCON_PASSWORD: ${{ secrets.RCON_PASSWORD }}
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          GIT_REPO_URL: ${{ secrets.GIT_REPO_URL }}
+          CACHE_FILE_PATH: ${{ secrets.CACHE_FILE_PATH }}
+          GIT_ACCESS_TOKEN: ${{ secrets.GIT_ACCESS_TOKEN }}
         run: node action.mjs
