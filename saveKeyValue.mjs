@@ -3,10 +3,12 @@ import { simpleGit } from 'simple-git';
 
 await import("dotenv").then((m) => m.config())
 
+const randomString = Math.random().toString(36).substring(7);
+const tempDir = `./temp-repo-${randomString}`;
+
 async function writeToGitFile(repoUrl, filePath, content, commitMessage, branch = 'main', auth = {}) {
   let authenticatedUrl = repoUrl;
   const git = simpleGit();
-  const tempDir = './temp-repo';
 
   // Apply authentication
   if (auth.type === 'basic') {
@@ -22,6 +24,8 @@ async function writeToGitFile(repoUrl, filePath, content, commitMessage, branch 
     urlObj.password = encodeURIComponent(token);
     authenticatedUrl = urlObj.toString();
   }
+
+  console.log('authenticatedUrl', authenticatedUrl)
 
   try {
     // Clone the repository if it doesn't exist
