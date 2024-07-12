@@ -7,6 +7,9 @@ const tempDir = `./temp-repo-${randomString}`;
 export async function loadFileFromGit({ repoUrl, filePath, branch = 'main' }) {
   const git = simpleGit();
 
+
+  console.log('repoUrl', repoUrl)
+
   try {
     // Clone the repository
     await git.clone(repoUrl, tempDir);
