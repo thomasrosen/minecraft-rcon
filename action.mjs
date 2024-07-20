@@ -1,5 +1,6 @@
 import { Rcon } from "rcon-client";
 import { loadFileFromGit } from './loadFileFromGit.mjs';
+import { rewrite } from './rewrite.mjs';
 import { saveKeyValue } from './saveKeyValue.mjs';
 
 await import("dotenv").then((m) => m.config())
@@ -68,8 +69,12 @@ async function sendPlayerInfo2discord() {
     return
   }
 
-  console.info(playersInfo)
-  sendMessage2discord(playersInfo)
+  const rewrittenMessage = await rewrite({
+    previousStatus: cachedPlayersInfo,
+    currentStatus: playersInfo,
+  })
+
+  sendMessage2discord(rewrittenMessage)
   saveCachePlayersInfo(playersInfo)
 }
 
