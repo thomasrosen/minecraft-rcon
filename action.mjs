@@ -21,6 +21,24 @@ async function sendMessage2discord(content) {
   })
 }
 
+async function getPlayerInfo() {
+  if (!process.env.RCON_HOST || !process.env.RCON_PORT || !process.env.RCON_PASSWORD) {
+    console.error("Missing RCON_HOST, RCON_PORT, or RCON_PASSWORD")
+    return
+  }
+
+  const rcon = await Rcon.connect({
+    host: process.env.RCON_HOST,
+    port: process.env.RCON_PORT,
+    password: process.env.RCON_PASSWORD
+  })
+
+  const playersInfo = await rcon.send("list")
+  rcon.end()
+
+  return playersInfo
+}
+
 function loadCachePlayersInfo() {
   return loadFileFromGit({ repoUrl: process.env.GIT_REPO_URL, filePath: process.env.CACHE_FILE_PATH, branch: 'main' })
 }
@@ -42,14 +60,7 @@ async function sendPlayerInfo2discord() {
     return
   }
 
-  const rcon = await Rcon.connect({
-    host: process.env.RCON_HOST,
-    port: process.env.RCON_PORT,
-    password: process.env.RCON_PASSWORD
-  })
-
-  const playersInfo = await rcon.send("list")
-  rcon.end()
+  const playersInfo = await getPlayerInfo()
 
   const cachedPlayersInfo = await loadCachePlayersInfo()
   if (playersInfo === cachedPlayersInfo) {
