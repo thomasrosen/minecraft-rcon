@@ -31,6 +31,15 @@ export async function rewrite({
   Keep it short. No emojis.
   `
 
+  const word_inspo = {
+    unhinged: 'minecraft, reals, world, chaos, wildcard, wonder, monsters, sky-high, magic, stone, adventure, falling, death, lunacy, maniac, insane, punk, reality, void, bridge, tunnel, party, catching a train, taking a boat, remains, spark, lone, collective, no one, gone, offline, beautiful, in awe, whimsical, tumult, dazzling, celestial, uplifting, talking to villagers, picking flowers, …',
+    edgar: 'minecraft, reals, world, chaos, wildcard, wonder, monsters, sky-high, magic, stone, adventure, falling, death, lunacy, maniac, insane, punk, reality, void, bridge, tunnel, party, catching a train, taking a boat, remains, spark, lone, collective, no one, gone, offline, beautiful, in awe, whimsical, tumult, dazzling, celestial, uplifting, talking to villagers, picking flowers, gothic, macabre, eerie, spectral, haunted, crypt, darkness, abyss, nightmare, torment, raven, shadow, ghostly, phantasm, lament, melancholy, cursed, desolation, mystery, doom, twilight, enigma, whisper, mournful, forsaken, dread, sinister, spectral, chasm, delirium, morbid, necropolis, sepulcher, ghastly, revenant, twilight, ominous, eldritch, despair, shrouded, haunted echo, forlorn, nightfall, chilling, uncanny, haunted mirror, withered rose, phantom whisper, eternal night, exploring haunted mansions, unearthing buried secrets, navigating dark forests, encountering spectral apparitions, deciphering ancient runes, crafting potions of shadow, battling nightmarish creatures, delving into cursed caverns, building gothic cathedrals, mining for hidden relics, summoning eldritch entities, escaping labyrinthine tunnels, investigating mysterious disappearances, constructing tombs, writing cryptic journals, listening to ghostly whispers, surviving in a desolate wasteland, searching for lost souls, reading forbidden tomes, experiencing eerie visions, creating macabre artworks, fleeing from unseen horrors, wandering through abandoned ruins, lighting the path with lanterns, performing rituals at moonlit altars, whispering to the ravens, harvesting withered crops, mending broken bridges, seeking the truth in shadows, warding off creeping dread, … (in the style of Edgar Allan Poe)',
+    german: 'minecraft, blumig, Mondstrahlen, kaleidoskopisch, sternenfunkeln, traumhaft, wirbelnd, phantastisch, funkelnd, magisch, schimmernd, poetisch, surreal, farbenfroh, verträumt, wolkig, nebulös, glitzernd, märchenhaft, geheimnisvoll, ätherisch, zauberhaft, sphärisch, flirrend, lichtdurchflutet, himmlisch, dämmernd, mystisch, funkelnd, galaktisch, verworren, zauberhaft, schwebend, blütenmeer, flimmernd, verzückt, flirrend, irisierend, mondbeschienen, verzaubert, tanzend, rauschend, schillernd, regenbogenhaft, verspielt, wolkig, sonnenstrahlen, himmlisch, neblig, magisch, traumwandlerisch, flüchtig, glühend, strahlend, glühwürmchen, sternschnuppe, dunstig, perlend, wundersam, bizarr, himmelwärts, leuchtend, glühend, phantasievoll, sanft, selig, …',
+    garden: 'minecraft, Blumen, pflegen, saftig, hacken, Tomaten, Erde, kompostieren, Pilze, wachsen, Rasen, gießen, Setzlinge, Gurken, Blütenblätter, ernten, Bäume, wachsen, Hacke, Gießkanne, Gemüse, blumig, schattig, düngen, Rosen, Jäten, Samen, robust, Bienen, fruchtbar, Lavendel, Tulpen, Birke, Kompost, mähen, klettern, Hacke, üppig, Sträucher, Gewächshaus, Harke, mähen, Beete, Minze, pflegen, Mohn, ernten, Kürbis, Garten, Sonnenblumen, …',
+    potsdam: 'Sanssouci, palaces, Prussian, baroque, gardens, Brandenburg, Havel River, Glienicke Bridge, Dutch Quarter, Babelsberg, film studios, historic, architecture, parks, Neues Palais, Cecilienhof, University of Potsdam, lakes, museums, royal, castles, Orangery Palace, Frederick the Great, cultural, Potsdam Conference, Brandenburg Gate (Potsdam), New Garden, Einstein Tower, UNESCO World Heritage, Neues Palais, Schloss Sanssouci, Marble Palace, historical, scenic, Potsdam University, scenic views, Babelsberg Castle, film park, cultural events, Russian Colony Alexandrowka, Belvedere on the Pfingstberg, City Palace, Old Market Square, Holländisches Viertel, biosphere, Pfaueninsel, tranquility'
+  }
+  const random_word_inspo = Object.values(word_inspo)[Math.floor(Math.random() * word_inspo.length)]
+
   const system_prompt = `
 **Guidelines:**
 
@@ -50,9 +59,12 @@ export async function rewrite({
   - KEEP it EXTREMELY BRIEF for only ONE player.
   - Use unhinged words, increasingly so as more players are online.
   - The first word MUST BE the player name that DIFFERS from the previous status. Make it **bold**.
+  - EVERYTHING MUST BE IN ENGLISH.
 
-4. **Word Inspiration:**
-  - minecraft, reals, world, chaos, wildcard, wonder, monsters, sky-high, magic, stone, adventure, falling, death, lunacy, maniac, insane, punk, reality, void, bridge, tunnel, party, catching a train, taking a boat, remains, spark, lone, collective, no one, gone, offline, beautiful, in awe, whimsical, tumult, dazzling, celestial, uplifting, talking to villagers, picking flowers.
+4. **Word inspo:**
+THE SENTENCE MUST BE IN STYLE OF THESE WORDS.
+${random_word_inspo}
+TRANSLATE INTO ENGLISH.
 
 5. **Structure:**
   - Mention players joining or leaving.
