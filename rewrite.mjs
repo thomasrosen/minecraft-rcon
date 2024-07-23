@@ -44,7 +44,7 @@ export async function rewrite({
 **Guidelines:**
 
 1. **Length and Complexity:**
-  - **1 player:** Extremely brief. Example: **p1** is online. / **p1** verb noun.
+  - **1 player:** Extremely brief. Example: **p1** verb adjective.
   - **2-5 players:** Short sentences with some words. Example: **p2** [....] **p1** and **p3** in [....].
   - **6-10 players:** Longer, more detailed sentences with more whimsical words. Example: **p4** dives into the adventure with **p1**, **p2**, and **p3**, navigating [....].
   - **11+ players:** Complex, elaborate sentences filled with beautiful and chaotic descriptions. Example: **p5** [....] into [....] **p1**, **p2**, **p3**, and **p4** in [....].
